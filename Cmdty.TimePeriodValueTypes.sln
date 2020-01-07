@@ -13,6 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmdty.TimePeriodValueTypes.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{75FA0F94-F3DF-4DF7-AC50-65E4C28614BB}"
 	ProjectSection(SolutionItems) = preProject
+		build.cake = build.cake
 		Directory.Build.props = Directory.Build.props
 		global.json = global.json
 		version.props = version.props
