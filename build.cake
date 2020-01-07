@@ -4,6 +4,7 @@ bool publishWithoutBuild = Argument<bool>("PublishWithoutBuild", false);
 string nugetPrereleaseTextPart = Argument<string>("PrereleaseText", "alpha");
 
 var artifactsDirectory = Directory("./artifacts");
+var samplesDirectory = Directory("./samples");
 string testResultDir = "./temp/";
 var isRunningOnBuildServer = !BuildSystem.IsLocalBuild;
 
@@ -103,6 +104,25 @@ Task("Build-Samples")
 	DotNetCoreBuild("samples/Cmdty.TimePeriodValueTypes.Samples.sln", dotNetCoreSettings);
 });
 
+Task("Verify-TryDotNetDocs")
+    .IsDependentOn("Build-Samples")
+	.Does(() =>
+{
+	StartProcessThrowOnError("dotnet", $"try verify {samplesDirectory}");
+});
+
+private void StartProcessThrowOnError(string applicationName, params string[] processArgs)
+{
+    var argsBuilder = new ProcessArgumentBuilder();
+    foreach(string processArg in processArgs)
+    {
+        argsBuilder.Append(processArg);
+    }
+    int exitCode = StartProcess(applicationName, new ProcessSettings {Arguments = argsBuilder});
+    if (exitCode != 0)
+        throw new ApplicationException($"Starting {applicationName} in new process returned non-zero exit code of {exitCode}");
+}
+
 using System.Reflection;
 private string GetAssemblyVersion(string configuration, string workingDirectory)
 {
@@ -130,6 +150,7 @@ Task("Pack-NuGet")
 });
 
 Task("Default")
+	.IsDependentOn("Verify-TryDotNetDocs")
 	.IsDependentOn("Pack-NuGet");
 
 RunTarget(target);
