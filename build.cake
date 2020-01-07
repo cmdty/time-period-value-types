@@ -5,13 +5,14 @@ string nugetPrereleaseTextPart = Argument<string>("PrereleaseText", "alpha");
 
 var artifactsDirectory = Directory("./artifacts");
 string testResultDir = "./temp/";
+var isRunningOnBuildServer = !BuildSystem.IsLocalBuild;
 
 var msBuildSettings = new DotNetCoreMSBuildSettings();
 
-if (HasArgument("BuildNumber"))
+if (HasArgument("PrereleaseNumber"))
 {
-    msBuildSettings.WithProperty("BuildNumber", Argument<string>("BuildNumber"));
-    msBuildSettings.WithProperty("VersionSuffix", nugetPrereleaseTextPart + Argument<string>("BuildNumber"));
+    msBuildSettings.WithProperty("PrereleaseNumber", Argument<string>("PrereleaseNumber"));
+    msBuildSettings.WithProperty("VersionSuffix", nugetPrereleaseTextPart + Argument<string>("PrereleaseNumber"));
 }
 
 if (HasArgument("VersionPrefix"))
@@ -61,5 +62,74 @@ Task("Test-C#")
     }
 });
 
+Task("Add-NuGetSource")
+    .Does(() =>
+    {
+		if (isRunningOnBuildServer)
+		{
+			// Get the access token
+			string accessToken = EnvironmentVariable("SYSTEM_ACCESSTOKEN");
+			if (string.IsNullOrEmpty(accessToken))
+			{
+				throw new InvalidOperationException("Could not resolve SYSTEM_ACCESSTOKEN.");
+			}
+
+			NuGetRemoveSource("Cmdty", "https://pkgs.dev.azure.com/cmdty/_packaging/cmdty/nuget/v3/index.json");
+
+			// Add the authenticated feed source
+			NuGetAddSource(
+				"Cmdty",
+				"https://pkgs.dev.azure.com/cmdty/_packaging/cmdty/nuget/v3/index.json",
+				new NuGetSourcesSettings
+				{
+					UserName = "VSTS",
+					Password = accessToken
+				});
+		}
+		else
+		{
+			Information("Not running on build so no need to add Cmdty NuGet source");
+		}
+    });
+
+Task("Build-Samples")
+    .IsDependentOn("Add-NuGetSource")
+	.Does(() =>
+{
+	var dotNetCoreSettings = new DotNetCoreBuildSettings()
+        {
+            Configuration = configuration,
+        };
+	DotNetCoreBuild("samples/Cmdty.TimePeriodValueTypes.Samples.sln", dotNetCoreSettings);
+});
+
+using System.Reflection;
+private string GetAssemblyVersion(string configuration, string workingDirectory)
+{
+	// TODO find better way of doing this!
+	string assemblyPath = System.IO.Path.Combine(workingDirectory, "src", "Cmdty.TimePeriodValueTypes", "bin", configuration, "netstandard2.0", "Cmdty.TimePeriodValueTypes.dll");
+	Assembly assembly = Assembly.LoadFrom(assemblyPath);
+	string productVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).ProductVersion;
+	return productVersion;
+}
+
+Task("Pack-NuGet")
+	.IsDependentOn("Build-Samples")
+	.IsDependentOn("Test-C#")
+	.IsDependentOn("Clean-Artifacts")
+	.Does(() =>
+{
+	var dotNetPackSettings = new DotNetCorePackSettings()
+                {
+                    Configuration = configuration,
+                    OutputDirectory = artifactsDirectory,
+                    NoRestore = true,
+                    MSBuildSettings = msBuildSettings
+                };
+	DotNetCorePack("src/Cmdty.TimePeriodValueTypes/Cmdty.TimePeriodValueTypes.csproj", dotNetPackSettings);
+});
+
+Task("Default")
+	.IsDependentOn("Pack-NuGet");
 
 RunTarget(target);

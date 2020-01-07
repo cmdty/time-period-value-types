@@ -5,6 +5,8 @@
     <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">$(TargetFrameworks);net40</TargetFrameworks>
     <PackageId>Cmdty.TimePeriodValueTypes</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/cmdty/time-period-value-types</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cmdty/time-period-value-types</RepositoryUrl>
     <Description>A lightweight library of structs for representing and manipulating time periods such as hours, days, months, quarters</Description>
     <PackageTags>date;time;calendar;timeperiod</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -49,10 +51,5 @@
       <DependentUpon>Season.cs</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
 
 </Project>
