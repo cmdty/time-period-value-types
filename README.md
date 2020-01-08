@@ -17,6 +17,7 @@ Time Period Value Types
     * [Expanding](#Expanding)
     * [Range of Valid Values](#Range-of-Valid-Values)
     * [Extension Methods](#Extension-Methods)
+* [Interactive Documentation](#Interactive-Documentation)
 * [License](#License)
 
 
@@ -252,6 +253,12 @@ All week days from 2019-08-30 to 2019-09-04
 2019-09-03
 2019-09-04
 ```
+
+## Interactive Documentation
+An interactive version of the above [user guide](#user-guide) has been provided using 
+[Try .NET](https://dotnet.microsoft.com/platform/try-dotnet) 
+a tool which allows C# code to be run in a browser using Markdown files. See [/samples/README.md](/samples/README.md) for details.
+
 
 ## License
 
