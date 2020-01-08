@@ -3,8 +3,6 @@ Time Period Value Types
 =========================
 [![NuGet](https://img.shields.io/nuget/v/cmdty.curves.svg)](https://www.nuget.org/packages/Cmdty.TimePeriodValueTypes/)
 
-A lightweight .NET library of structs for representing and manipulating time periods such as hours, days, months, quarters.
-
 ### Table of Contents
 * [Overview](#overview)
 * [Installing](#installing)

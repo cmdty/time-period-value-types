@@ -179,6 +179,28 @@ namespace Cmdty.Curves.Samples.TimePeriodValueTypes
 
         }
 
+        private static void TimePeriodInterface()
+        {
+            #region time_period_interface
+
+            void DoSomething<T>(T timePeriod)
+                where T : ITimePeriod<T>
+            {
+                T offsetTimePeriod = timePeriod.Offset(4);
+                int offset = offsetTimePeriod.OffsetFrom(timePeriod);
+                Hour firstHour = timePeriod.First<Hour>();
+                Hour lastHour = timePeriod.Last<Hour>();
+                DateTime start = offsetTimePeriod.Start;
+
+            }
+
+            var dec20 = new Month(2020, 12);
+
+            DoSomething(dec20);
+
+            #endregion
+        }
+
         private static void ConvertingGranularity()
         {
             #region converting_granularity
