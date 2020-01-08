@@ -1,7 +1,7 @@
 
 Time Period Value Types
 =========================
-[![NuGet](https://img.shields.io/nuget/v/cmdty.curves.svg)](https://www.nuget.org/packages/Cmdty.TimePeriodValueTypes/)
+[![NuGet](https://img.shields.io/nuget/v/cmdty.timeperiodvaluetypes.svg)](https://www.nuget.org/packages/Cmdty.TimePeriodValueTypes/)
 
 ### Table of Contents
 * [Overview](#overview)
