@@ -1,6 +1,8 @@
 
 Time Period Value Types
 =========================
+[![Build Status](https://dev.azure.com/cmdty/github/_apis/build/status/cmdty.time-period-value-types?branchName=master)](https://dev.azure.com/cmdty/github/_build/latest?definitionId=4&branchName=master)
+![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/cmdty/github/4)
 [![NuGet](https://img.shields.io/nuget/v/cmdty.timeperiodvaluetypes.svg)](https://www.nuget.org/packages/Cmdty.TimePeriodValueTypes/)
 
 ### Table of Contents
