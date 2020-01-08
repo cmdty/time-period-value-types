@@ -31,9 +31,9 @@ namespace Cmdty.TimePeriodValueTypes.Samples
 {
     class Program
     {
-        static void Main(string region = null)
+        static void Main(string[] args)
         {
-            if (region == null)
+            if (args.Length == 0)
             {
                 Creating();
                 ParsingFormatting();
@@ -48,7 +48,7 @@ namespace Cmdty.TimePeriodValueTypes.Samples
             }
             else
             {
-                switch (region)
+                switch (args[1])
                 {
                     case "creating":
                         Creating();

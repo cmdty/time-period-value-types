@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmdty.TimePeriodValueTypes.Samples", "Cmdty.TimePeriodValueTypes.Samples\Cmdty.TimePeriodValueTypes.Samples.csproj", "{FBF3FDFD-41F5-42FF-BD7B-145E0A6238FB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{27F24D40-FF20-43E3-B81F-978EBB3DA831}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
