@@ -1,11 +1,13 @@
 
 Time Period Value Types
 =========================
-The package Cmdty.TimePeriodValueTypes contains a set of types used to represent a time period for specific granularity. Examples of such types include Month, Quarter, HalfHour and Hour, but many others are also present.
+[![NuGet](https://img.shields.io/nuget/v/cmdty.curves.svg)](https://www.nuget.org/packages/Cmdty.TimePeriodValueTypes/)
 
-These types are used extensively within the Cmdty library to represent the delivery periods for traded commodities. However, there is nothing commodity-specific within the Time Period Value Types API, and hence these types could be used in many other non-commodity business contexts.
+A lightweight .NET library of structs for representing and manipulating time periods such as hours, days, months, quarters.
 
 ### Table of Contents
+* [Overview](#overview)
+* [Installing](#installing)
 * [User Guide](#user-guide)
     * [Creating Instances](#Creating-Instances)
     * [Parsing and Formatting](#Parsing-and-Formatting)
@@ -17,6 +19,21 @@ These types are used extensively within the Cmdty library to represent the deliv
     * [Extension Methods](#Extension-Methods)
 * [License](#License)
 
+
+## Overview
+The package Cmdty.TimePeriodValueTypes contains a set of types used to represent a time period for specific granularity. Examples of such types include Month, Quarter, HalfHour and Hour, but many others are also present.
+
+These types are used extensively within the Cmdty library to represent the delivery periods for traded commodities. However, there is nothing commodity-specific within the Time Period Value Types API, and hence these types could be used in many other non-commodity business contexts.
+
+## Installing
+From the Visual Studio Package Manager console:
+```
+PM> Install-Package Cmdty.TimePeriodValueTypes -Version 1.0.0-alpha1
+```
+From the .NET Core CLI:
+```
+dotnet add package Cmdty.TimePeriodValueTypes --version 1.0.0-alpha1
+```
 
 ## User Guide
 ### Creating Instances
