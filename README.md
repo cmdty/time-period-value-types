@@ -1,10 +1,24 @@
 
-# Time Period Value Types
+Time Period Value Types
+=========================
 The package Cmdty.TimePeriodValueTypes contains a set of types used to represent a time period for specific granularity. Examples of such types include Month, Quarter, HalfHour and Hour, but many others are also present.
 
 These types are used extensively within the Cmdty library to represent the delivery periods for traded commodities. However, there is nothing commodity-specific within the Time Period Value Types API, and hence these types could be used in many other non-commodity business contexts.
 
+### Table of Contents
+* [User Guide](#user-guide)
+    * [Creating Instances](#Creating-Instances)
+    * [Parsing and Formatting](#Parsing-and-Formatting)
+    * [Comparing Instances](#Comparing-Instances)
+    * [Offsetting Instances](#Offsetting-Instances)
+    * [Converting Between Granularities](#Converting-Between-Granularities)
+    * [Expanding](#Expanding)
+    * [Range of Valid Values](#Range-of-Valid-Values)
+    * [Extension Methods](#Extension-Methods)
+* [License](#License)
 
+
+## User Guide
 ### Creating Instances
 As well as being able to create instances using constructors, many types have helper static factory methods as shown for the Month and Quarter types below.
 All Time Period types also have a FromDateTime static methods for
@@ -221,3 +235,7 @@ All week days from 2019-08-30 to 2019-09-04
 2019-09-03
 2019-09-04
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
