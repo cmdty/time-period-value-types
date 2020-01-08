@@ -7,13 +7,13 @@ The interactive Markdown files need to be setup and run locally using the steps 
 
 #### Setup
 
-* Follow the setup requirements of Try .NET found in the [Setup section of project GitHub page](https://github.com/dotnet/try#setup).
+* Follow the setup requirements of Try .NET found in the [Setup section of project GitHub page](https://github.com/dotnet/try/blob/master/DotNetTryLocal.md).
 * Clone the [cmdty/time-period-value-types](https://github.com/cmdty/time-period-value-types) repository to your local machine.
 
 
 #### Running
 
-* Open a CLI locally and set the current directory to time-period-value-types/samples/ within the cloned repository.
+* Open a CLI locally and set the current directory to the /samples directory within the cloned repository.
 * In the CLI run the following command:
 ```
 > dotnet try
