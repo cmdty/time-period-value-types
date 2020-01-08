@@ -26,9 +26,8 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Cmdty.TimePeriodValueTypes;
 
-namespace Cmdty.Curves.Samples.TimePeriodValueTypes
+namespace Cmdty.TimePeriodValueTypes.Samples
 {
     class Program
     {
