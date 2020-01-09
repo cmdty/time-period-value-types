@@ -18,6 +18,7 @@ Time Period Value Types
     * [Range of Valid Values](#Range-of-Valid-Values)
     * [Extension Methods](#Extension-Methods)
 * [Interactive Documentation](#Interactive-Documentation)
+* [Building](#building)
 * [License](#License)
 
 
@@ -258,6 +259,38 @@ All week days from 2019-08-30 to 2019-09-04
 An interactive version of the above [user guide](#user-guide) has been provided using 
 [Try .NET](https://dotnet.microsoft.com/platform/try-dotnet) 
 a tool which allows C# code to be run in a browser using Markdown files. See [/samples/README.md](/samples/README.md) for details.
+
+## Building
+This section describes how to run a scripted build on a cloned repo, using the [Cake](https://github.com/cake-build/cake) build tool.
+
+#### Build Prerequisites
+The following are required on the host machine in order for the build to run.
+* The .NET Core SDK. Check the [global.json file](global.json) for the version necessary, taking into account [the matching rules used](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json#matching-rules).
+
+#### Running the Build on Windows
+The build is started by running the PowerShell script build.ps1 from a PowerShell console, ISE, or the Visual Studio Package Manager Console.
+
+```
+PM> .\build.ps1
+```
+
+#### Running the Build on Linux or macOS
+Run the build by invoking the [build.sh](build.sh) script.
+
+```
+> chmod +x ./build.sh
+> ./build.sh
+```
+
+Alternatively, if [PowerShell Core](https://github.com/PowerShell/PowerShell) is installed,
+the build can be run with the following command:
+```
+> pwsh ./build.ps1
+```
+#### Build Artifacts
+The result of the build is the NuGet package Cmdty.TimePeriodValueTypes.[version].nupkg, 
+which is saved into the artifacts directory (which itelf will be created in the top 
+directory of the repo).
 
 
 ## License
