@@ -85,15 +85,22 @@ Dec-19 parsed from text: 2019-12
 ```
 
 ### Comparing Instances
-All time period types implement IComparable\<T\> and so have the CompareTo method for strongly typed comparison between instances of the same type.
+All time period types implement [IComparable\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.icomparable-1?view=netstandard-2.0) and so have the CompareTo method for strongly typed comparison between instances of the same type.
+
+[IEquatable\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.iequatable-1?view=netstandard-2.0) is implemented for a strongly typed Equals method.
 
 For convenience, the comparison and equality operators are also overloaded for all time period types.
 ```c#
 var qu119 = new Quarter(2019, 1);
 var qu219 = Quarter.CreateQuarter2(2019);
 
-Console.WriteLine(qu119.CompareTo(qu219));   // IComparable<T>.CompareTo
+// IComparable<T>.CompareTo
+Console.WriteLine(qu119.CompareTo(qu219));
+Console.WriteLine();
 
+// IEquatable<T>.Equals
+Console.WriteLine(qu119.Equals(qu219));
+Console.WriteLine();
 
 // Comparison operators
 Console.WriteLine(qu119 < qu219);
@@ -104,6 +111,10 @@ Console.WriteLine(qu119 > qu219);
 Console.WriteLine(qu119 >= qu219);
 ```
 ```
+-1
+
+False
+
 True
 True
 False

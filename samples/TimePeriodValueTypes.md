@@ -23,7 +23,9 @@ Some of the types also implement IFormattable which means an additional override
 ```
 
 ### Comparing Instances
-All time period types implement IComparable\<T\> and so have the CompareTo method for strongly typed comparison between instances of the same type.
+All time period types implement [IComparable\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.icomparable-1?view=netstandard-2.0) and so have the CompareTo method for strongly typed comparison between instances of the same type.
+
+[IEquatable\<T\>](https://docs.microsoft.com/en-us/dotnet/api/system.iequatable-1?view=netstandard-2.0) is implemented for a strongly typed Equals method.
 
 For convenience, the comparison and equality operators are also overloaded for all time period types.
 ```cs --region comparing --source-file ./Cmdty.TimePeriodValueTypes.Samples/Program.cs --project ./Cmdty.TimePeriodValueTypes.Samples/Cmdty.TimePeriodValueTypes.Samples.csproj

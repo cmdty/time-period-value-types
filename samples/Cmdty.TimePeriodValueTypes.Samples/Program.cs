@@ -120,12 +120,18 @@ namespace Cmdty.TimePeriodValueTypes.Samples
         private static void Comparing()
         {
             #region comparing
-            // IComparable<T>.CompareTo
+            
             var qu119 = new Quarter(2019, 1);
             var qu219 = Quarter.CreateQuarter2(2019);
 
+            // IComparable<T>.CompareTo
             Console.WriteLine(qu119.CompareTo(qu219));
-            
+            Console.WriteLine();
+
+            // IEquatable<T>.Equals
+            Console.WriteLine(qu119.Equals(qu219));
+            Console.WriteLine();
+
             // Comparison operators
             Console.WriteLine(qu119 < qu219);
             Console.WriteLine(qu119 <= qu219);
