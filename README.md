@@ -31,11 +31,11 @@ These types are used extensively within the Cmdty library to represent the deliv
 ## Installing
 From the Visual Studio Package Manager console:
 ```
-PM> Install-Package Cmdty.TimePeriodValueTypes -Version 1.0.0-alpha1
+PM> Install-Package Cmdty.TimePeriodValueTypes
 ```
-From the .NET Core CLI:
+Or from the .NET Core CLI:
 ```
-dotnet add package Cmdty.TimePeriodValueTypes --version 1.0.0-alpha1
+dotnet add package Cmdty.TimePeriodValueTypes
 ```
 
 ## User Guide
