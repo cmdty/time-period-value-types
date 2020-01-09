@@ -15,7 +15,7 @@ Time Period Value Types
     * [Offsetting Instances](#Offsetting-Instances)
     * [Converting Between Granularities](#Converting-Between-Granularities)
     * [Expanding](#Expanding)
-    * [ITimePeriod\<T\> Interface](#ITimePeriod\<T\>-Interface)
+    * [ITimePeriod\<T\> Interface](#ITimePeriodT-Interface)
     * [Range of Valid Values](#Range-of-Valid-Values)
     * [Extension Methods](#Extension-Methods)
 * [Interactive Documentation](#Interactive-Documentation)
