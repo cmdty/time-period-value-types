@@ -40,6 +40,7 @@ namespace Cmdty.TimePeriodValueTypes.Samples
                 Comparing();
                 Offsetting();
                 OffsetOperators();
+                TimePeriodInterface();
                 ConvertingGranularity();
                 Expanding();
                 TimePeriodRanges();
@@ -64,6 +65,9 @@ namespace Cmdty.TimePeriodValueTypes.Samples
                         break;
                     case "offset_operators":
                         OffsetOperators();
+                        break;
+                    case "time_period_interface":
+                        TimePeriodInterface();
                         break;
                     case "converting_granularity":
                         ConvertingGranularity();
@@ -94,6 +98,7 @@ namespace Cmdty.TimePeriodValueTypes.Samples
 
             Day christmas2020 = Day.FromDateTime(new DateTime(2020, 12, 25));
             Console.WriteLine(christmas2020);
+            Console.WriteLine();
             #endregion
         }
 
@@ -108,7 +113,7 @@ namespace Cmdty.TimePeriodValueTypes.Samples
 
             var hour = new Hour(2019, 9, 11, 12);
             Console.WriteLine(hour.ToString("dd-MMM-yyyy hh:mm:ss", CultureInfo.InvariantCulture));
-
+            Console.WriteLine();
             #endregion
         }
 
@@ -128,6 +133,7 @@ namespace Cmdty.TimePeriodValueTypes.Samples
             Console.WriteLine(qu119 != qu219);
             Console.WriteLine(qu119 > qu219);
             Console.WriteLine(qu119 >= qu219);
+            Console.WriteLine();
             #endregion
         }
 
@@ -140,8 +146,8 @@ namespace Cmdty.TimePeriodValueTypes.Samples
 
             int numHours = midday.OffsetFrom(tenAm);
             Console.WriteLine(numHours);
+            Console.WriteLine();
             #endregion offsetting
-
         }
 
         private static void OffsetOperators()
@@ -174,29 +180,29 @@ namespace Cmdty.TimePeriodValueTypes.Samples
             Console.WriteLine(halfHour);
             halfHour--;
             Console.WriteLine(halfHour);
+            Console.WriteLine();
             #endregion offset_operators
-
         }
 
         private static void TimePeriodInterface()
         {
             #region time_period_interface
 
-            void DoSomething<T>(T timePeriod)
+            void PrintFirstAndLastPeriods<T, T2>(T timePeriod)
                 where T : ITimePeriod<T>
+                where T2 : ITimePeriod<T2>
             {
-                T offsetTimePeriod = timePeriod.Offset(4);
-                int offset = offsetTimePeriod.OffsetFrom(timePeriod);
-                Hour firstHour = timePeriod.First<Hour>();
-                Hour lastHour = timePeriod.Last<Hour>();
-                DateTime start = offsetTimePeriod.Start;
+                string periodType = typeof(T).Name;
+                string period2Type = typeof(T2).Name;
 
+                T2 firstHour = timePeriod.First<T2>();
+                T2 lastHour = timePeriod.Last<T2>();
+                Console.WriteLine($"The {periodType} period '{timePeriod}' has first {period2Type} '{firstHour.ToString()}' and last {period2Type} '{lastHour.ToString()}'");
             }
 
             var dec20 = new Month(2020, 12);
-
-            DoSomething(dec20);
-
+            PrintFirstAndLastPeriods<Month, Hour>(dec20);
+            Console.WriteLine();
             #endregion
         }
 
@@ -208,7 +214,6 @@ namespace Cmdty.TimePeriodValueTypes.Samples
             Console.WriteLine("The last month in Q1-19 is " + qu119.Last<Month>());
             Console.WriteLine();
             #endregion converting_granularity
-
         }
 
         private static void Expanding()
@@ -221,6 +226,7 @@ namespace Cmdty.TimePeriodValueTypes.Samples
             {
                 Console.WriteLine(month);
             }
+            Console.WriteLine();
             #endregion expanding
         }
 
@@ -229,6 +235,7 @@ namespace Cmdty.TimePeriodValueTypes.Samples
             #region time_period_ranges
             Console.WriteLine("Minimum Day: " + Day.MinDay);
             Console.WriteLine("Maximum Day: " + Day.MaxDay);
+            Console.WriteLine();
             #endregion time_period_ranges
         }
 
@@ -251,6 +258,7 @@ namespace Cmdty.TimePeriodValueTypes.Samples
             {
                 Console.WriteLine(weekday);
             }
+            Console.WriteLine();
             #endregion extension_methods
         }
 
