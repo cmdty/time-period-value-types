@@ -15,6 +15,7 @@ Time Period Value Types
     * [Offsetting Instances](#Offsetting-Instances)
     * [Converting Between Granularities](#Converting-Between-Granularities)
     * [Expanding](#Expanding)
+    * [ITimePeriod\<T\> Interface](#ITimePeriod\<T\>-Interface)
     * [Range of Valid Values](#Range-of-Valid-Values)
     * [Extension Methods](#Extension-Methods)
 * [Interactive Documentation](#Interactive-Documentation)
@@ -206,6 +207,31 @@ All the months in Q2-19:
 2019-04
 2019-05
 2019-06
+```
+
+### ITimePeriod\<T\> Interface
+All time period types implement the [ITimePeriod<T>](src/Cmdty.TimePeriodValueTypes/ITimePeriod.cs) interface. One use of this is to write generic code which can be used
+on any of the implementing time period types as shown in the example below.
+
+```c#
+void PrintFirstAndLastPeriods<T, T2>(T timePeriod)
+    where T : ITimePeriod<T>
+    where T2 : ITimePeriod<T2>
+{
+    string periodType = typeof(T).Name;
+    string period2Type = typeof(T2).Name;
+
+    T2 firstHour = timePeriod.First<T2>();
+    T2 lastHour = timePeriod.Last<T2>();
+    Console.WriteLine($"The {periodType} period '{timePeriod}' has first {period2Type} '{firstHour.ToString()}' and last {period2Type} '{lastHour.ToString()}'");
+}
+
+var dec20 = new Month(2020, 12);
+PrintFirstAndLastPeriods<Month, Hour>(dec20);
+```
+
+```
+The Month period '2020-12' has first Hour '2020-12-01 00:00' and last Hour '2020-12-31 23:00'
 ```
 
 ### Range of Valid Values

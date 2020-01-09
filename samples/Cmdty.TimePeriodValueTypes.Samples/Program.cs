@@ -66,14 +66,14 @@ namespace Cmdty.TimePeriodValueTypes.Samples
                     case "offset_operators":
                         OffsetOperators();
                         break;
-                    case "time_period_interface":
-                        TimePeriodInterface();
-                        break;
                     case "converting_granularity":
                         ConvertingGranularity();
                         break;
                     case "expanding":
                         Expanding();
+                        break;
+                    case "time_period_interface":
+                        TimePeriodInterface();
                         break;
                     case "time_period_ranges":
                         TimePeriodRanges();

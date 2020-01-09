@@ -51,6 +51,12 @@ The Expand\<T\> method can be use to expand a time period into a collection of i
 ```cs --region expanding --source-file ./Cmdty.TimePeriodValueTypes.Samples/Program.cs --project ./Cmdty.TimePeriodValueTypes.Samples/Cmdty.TimePeriodValueTypes.Samples.csproj
 ```
 
+### ITimePeriod\<T\> Interface
+All time period types implement the [ITimePeriod<T>](../src/Cmdty.TimePeriodValueTypes/ITimePeriod.cs) interface. One use of this is to write generic code which can be used
+on any of the implementing time period types as shown in the example below.
+```cs --region time_period_interface --source-file ./Cmdty.TimePeriodValueTypes.Samples/Program.cs --project ./Cmdty.TimePeriodValueTypes.Samples/Cmdty.TimePeriodValueTypes.Samples.csproj
+```
+
 ### Range of Valid Values
 All time period types have static properties give information on the valid range for each time period type.
 ```cs --region time_period_ranges --source-file ./Cmdty.TimePeriodValueTypes.Samples/Program.cs --project ./Cmdty.TimePeriodValueTypes.Samples/Cmdty.TimePeriodValueTypes.Samples.csproj
