@@ -13,10 +13,7 @@ steps:
     inputs:
       packageType: 'sdk'
       useGlobalJson: true
-
-  - script: dotnet tool install -g dotnet-try
-    displayName: 'Install dotnet-try'
-
+      
   - task: PowerShell@2
     displayName: 'Run Cake PowerShell Bootstrapper'
     inputs:
