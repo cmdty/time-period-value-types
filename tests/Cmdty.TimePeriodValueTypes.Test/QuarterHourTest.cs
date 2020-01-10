@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using NUnit.Framework;
 
@@ -137,6 +138,66 @@ namespace Cmdty.TimePeriodValueTypes.Test
             "2019-05-06 20:000"
             // TODO add more items
         };
+
+        [Test]
+        public void ToString_InvariantCultureFormatProvider_TextWithColonTimeSeparator()
+        {
+            var halfHour = new HalfHour(2020, 1, 20, 9, 30);
+            string formatted = halfHour.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual("2020-01-20 09:30", formatted);
+        }
+
+        [Test]
+        public void ToString_FormatProviderWithDotTimeSeparator_TextWithDotTimeSeparator()
+        {
+            var quarterHour = new QuarterHour(2020, 1, 20, 9, 0);
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-UK");
+            DateTimeFormatInfo dateTimeFormat = culture.DateTimeFormat;
+            dateTimeFormat.TimeSeparator = ".";
+            string formatted = quarterHour.ToString(dateTimeFormat);
+            Assert.AreEqual("2020-01-20 09.00", formatted);
+        }
+
+        [Test]
+        public void ToString_CustomFormatString_AsExpected()
+        {
+            var quarterHour = new QuarterHour(2020, 1, 20, 9, 30);
+            string formatted = quarterHour.ToString("yyyy M d");
+            Assert.AreEqual("2020 1 20", formatted);
+        }
+
+        [Test]
+        public void ToString_FormatStringAndFormatProvider_AsExpected()
+        {
+            var quarterHour = new QuarterHour(2020, 1, 20, 9, 30);
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-UK");
+            DateTimeFormatInfo dateTimeFormat = culture.DateTimeFormat;
+            dateTimeFormat.TimeSeparator = ".";
+            string formatted = quarterHour.ToString("yyyy M d hh:mm:ss", dateTimeFormat);
+            Assert.AreEqual("2020 1 20 09.30.00", formatted);
+        }
+
+        [Test]
+        public void ToString_NullFormatStringAndFormatProvider_AsExpected()
+        {
+            var quarterHour = new QuarterHour(2020, 1, 20, 9, 0);
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-UK");
+            DateTimeFormatInfo dateTimeFormat = culture.DateTimeFormat;
+            dateTimeFormat.TimeSeparator = ".";
+            string formatted = quarterHour.ToString(null, dateTimeFormat);
+            Assert.AreEqual("2020-01-20 09.00", formatted);
+        }
+
+        [Test]
+        public void ToString_FormatStringNull_ReturnsIso8601Format()
+        {
+            var quarterHour = new QuarterHour(2020, 1, 20, 9, 30);
+            string formatted = quarterHour.ToString((string)null);
+            Assert.AreEqual("2020-01-20 09:30", formatted);
+        }
+
+        // TODO add unit tests for Parse static methods with format and culture parameters
+        
         #endregion Formatting and Parsing
 
         #region Test Case and Value Sources

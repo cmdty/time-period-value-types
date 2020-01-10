@@ -130,6 +130,8 @@ namespace Cmdty.TimePeriodValueTypes
         /// <paramref name="formatProvider"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
         {
+            if (format == null)
+                return ToString(formatProvider);
             return Start.ToString(format, formatProvider);
         }
 
@@ -142,7 +144,22 @@ namespace Cmdty.TimePeriodValueTypes
         /// the current thread's formatting conventions.</returns>
         public string ToString(string format)
         {
+            if (format == null)
+                return ToString();
             return Start.ToString(format);
+        }
+
+        /// <summary>
+        /// Converts the current instance to a string representation using culture-specific format information.
+        /// </summary>
+        /// <param name="formatProvider">An object that supplies culture-specific formatting information. If null, the
+        /// the current thread's culture is used.</param>
+        /// <returns>A string representation of the current instance, formatted using <paramref name="formatProvider"/>.</returns>
+        public string ToString(IFormatProvider formatProvider)
+        {
+            if (formatProvider == null)
+                return ToString();
+            return Start.ToString("yyyy-MM-dd hh:mm", formatProvider);
         }
 
         /// <summary>
