@@ -117,7 +117,6 @@ namespace Cmdty.TimePeriodValueTypes
         [Pure]
         public override string ToString()
         {
-            // TODO think about using a different format? Use a "T" between the date and hour parts?
             (int year, int month, int day, int hour, int minute) = this;
             return string.Format(CultureInfo.InvariantCulture, "{0:D4}-{1:D2}-{2:D2} {3:D2}:{4:D2}", year, month, day, hour, minute); // Using InvariantCulture doesn't seem to be necessary as all cultures result in the same string, but using InvariantCulture is safer and more future-proof
         }
@@ -132,6 +131,8 @@ namespace Cmdty.TimePeriodValueTypes
         /// <paramref name="formatProvider"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
         {
+            if (format == null)
+                return ToString(formatProvider);
             return Start.ToString(format, formatProvider);
         }
 
@@ -144,7 +145,22 @@ namespace Cmdty.TimePeriodValueTypes
         /// the current thread's formatting conventions.</returns>
         public string ToString(string format)
         {
+            if (format == null)
+                return ToString();
             return Start.ToString(format);
+        }
+
+        /// <summary>
+        /// Converts the current instance to a string representation using culture-specific format information.
+        /// </summary>
+        /// <param name="formatProvider">An object that supplies culture-specific formatting information. If null, the
+        /// the current thread's culture is used.</param>
+        /// <returns>A string representation of the current instance, formatted using <paramref name="formatProvider"/>.</returns>
+        public string ToString(IFormatProvider formatProvider)
+        {
+            if (formatProvider == null)
+                return ToString();
+            return Start.ToString("yyyy-MM-dd hh:mm", formatProvider);
         }
 
         /// <summary>

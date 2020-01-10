@@ -324,7 +324,6 @@ namespace Cmdty.TimePeriodValueTypes
         [Pure]
         public override string ToString()
         {
-            // TODO think about using a different format? Use a "T" between the date and hour parts?
             (int year, int month, int day, int hour) = this;
             return string.Format(CultureInfo.InvariantCulture, "{0:D4}-{1:D2}-{2:D2} {3:D2}:00", year, month, day, hour); // Using InvariantCulture doesn't seem to be necessary as all cultures result in the same string, but using InvariantCulture is safer and more future-proof
         }
