@@ -24,7 +24,8 @@ Time Period Value Types
 
 
 ## Overview
-The package Cmdty.TimePeriodValueTypes contains a set of types used to represent a time period for specific granularity. Examples of such types include Month, Quarter, HalfHour and Hour, but many others are also present.
+The package Cmdty.TimePeriodValueTypes contains a set of types used to represent time periods for specific granularities. Examples of such types include Month, Quarter, HalfHour and Hour, but many others are also present. Implemented as [readonly structs](https://docs.microsoft.com/en-us/dotnet/csharp/write-safe-efficient-code#declare-readonly-structs-for-immutable-value-types) and only 32 bits in size, these types are also suitable for situations where high performance 
+is necessary.
 
 These types are used extensively within the Cmdty library to represent the delivery periods for traded commodities. However, there is nothing commodity-specific within the Time Period Value Types API, and hence these types could be used in many other non-commodity business contexts.
 
