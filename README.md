@@ -138,7 +138,7 @@ Console.WriteLine(numHours);
 ```
 
 ```
-8/30/2019 12:00:00 PM
+2019-08-30 12:00
 2
 ```
 
@@ -179,14 +179,14 @@ Console.WriteLine(halfHour);
 3
 
 Incrementing Half Hour
-8/30/2019 10:00:00 PM
-8/30/2019 10:30:00 PM
-8/30/2019 11:00:00 PM
+2019-08-30 10:00
+2019-08-30 10:30
+2019-08-30 11:00
 
 Decrementing Half Hour
-8/30/2019 10:30:00 PM
-8/30/2019 10:00:00 PM
-8/30/2019 9:30:00 PM
+2019-08-30 10:30
+2019-08-30 10:00
+2019-08-30 09:30
 ```
 
 ### Converting Between Granularities
