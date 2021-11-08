@@ -28,6 +28,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using JetBrains.Annotations;
+using System.Runtime.CompilerServices;
 
 namespace Cmdty.TimePeriodValueTypes
 {
@@ -36,11 +37,10 @@ namespace Cmdty.TimePeriodValueTypes
     /// at the end of the 31st of December.
     /// </summary>
     [Serializable]
-    public struct CalendarYear : ITimePeriod<CalendarYear>
+    public readonly struct CalendarYear : ITimePeriod<CalendarYear>
     {
         #region Fields
-        // ReSharper disable once FieldCanBeMadeReadOnly.Local
-        private ushort _value;  // Not readonly to avoid defensive copying (see https://blog.nodatime.org/2014/07/micro-optimization-surprising.html)
+        private readonly ushort _value;
         #endregion Fields
 
         #region Constructors
@@ -213,7 +213,7 @@ namespace Cmdty.TimePeriodValueTypes
             Preconditions.CheckParameterNotNull(reader, nameof(reader));
             string yearText = reader.ReadElementContentAsString();
             var yearNum = int.Parse(yearText);
-            this = new CalendarYear(yearNum);
+            Unsafe.AsRef(this) = new CalendarYear(yearNum);
         }
 
         /// <inheritdoc/>
