@@ -29,25 +29,14 @@ using JetBrains.Annotations;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-#if !NET40
 using System.Runtime.CompilerServices;
-#endif
 
 namespace Cmdty.TimePeriodValueTypes
 {
-#if NET40
-	public partial struct QuarterHour
-#else
 	public readonly partial struct QuarterHour
-#endif
     {
 	    #region Fields
-#if NET40
-        // ReSharper disable once FieldCanBeMadeReadOnly.Local
-        private int _value; // Not readonly to avoid defensive copying  (see https://blog.nodatime.org/2014/07/micro-optimization-surprising.html)
-#else
         private readonly int _value;
-#endif
 		#endregion Fields
 
 		#region Static Methods
@@ -216,11 +205,7 @@ namespace Cmdty.TimePeriodValueTypes
         {
             Preconditions.CheckParameterNotNull(reader, nameof(reader));
             string valueText = reader.ReadElementContentAsString();
-#if NET40
-            this = Parse(valueText);
-#else
             Unsafe.AsRef(this) = Parse(valueText);
-#endif
         }
 
         /// <inheritdoc/>
