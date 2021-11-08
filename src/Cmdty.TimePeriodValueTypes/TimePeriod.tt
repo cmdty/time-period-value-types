@@ -40,12 +40,10 @@ var localVariableName = localVariableNames[i];
 
 // THIS FILE HAS BEEN AUTOMATICALLY GENERATED USING T4. DO NOT MODIFY AS ANY CHANGES WILL BE OVERWRITTEN.
 
-using System;
 using JetBrains.Annotations;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using System.Collections.Generic;
 #if !NET40
 using System.Runtime.CompilerServices;
 #endif
