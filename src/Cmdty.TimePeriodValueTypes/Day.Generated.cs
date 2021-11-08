@@ -35,9 +35,7 @@ namespace Cmdty.TimePeriodValueTypes
 {
 	public readonly partial struct Day
     {
-	    #region Fields
         private readonly int _value;
-		#endregion Fields
 
 		#region Static Methods
 

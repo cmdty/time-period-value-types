@@ -35,9 +35,7 @@ namespace Cmdty.TimePeriodValueTypes
 {
 	public readonly partial struct Quarter
     {
-	    #region Fields
         private readonly int _value;
-		#endregion Fields
 
 		#region Static Methods
 

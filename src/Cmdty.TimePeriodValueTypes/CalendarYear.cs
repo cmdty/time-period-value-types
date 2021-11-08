@@ -39,9 +39,7 @@ namespace Cmdty.TimePeriodValueTypes
     [Serializable]
     public readonly struct CalendarYear : ITimePeriod<CalendarYear>
     {
-        #region Fields
         private readonly ushort _value;
-        #endregion Fields
 
         #region Constructors
         /// <summary>
