@@ -6,6 +6,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../../StrongName.snk</AssemblyOriginatorKeyFile>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 </Project>
