@@ -25,8 +25,6 @@
 
 // THIS FILE HAS BEEN AUTOMATICALLY GENERATED USING T4. DO NOT MODIFY AS ANY CHANGES WILL BE OVERWRITTEN.
 
-using System;
-using NUnit.Framework;
 using System.Xml.Serialization;
 
 namespace Cmdty.TimePeriodValueTypes.Test
