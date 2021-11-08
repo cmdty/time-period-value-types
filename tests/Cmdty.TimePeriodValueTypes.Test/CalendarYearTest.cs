@@ -24,7 +24,6 @@
 #endregion
 
 using System.Xml.Serialization;
-using NUnit.Framework;
 
 namespace Cmdty.TimePeriodValueTypes.Test
 {

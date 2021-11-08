@@ -25,7 +25,6 @@
 
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
-using NUnit.Framework;
 
 namespace Cmdty.TimePeriodValueTypes.Test
 {

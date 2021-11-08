@@ -23,8 +23,6 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-using NUnit.Framework;
-
 namespace Cmdty.TimePeriodValueTypes.Test
 {
     public sealed partial class SeasonTest

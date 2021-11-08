@@ -1,30 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
+    <PropertyGroup>
     <TargetFrameworks>netcoreapp6.0</TargetFrameworks>
     <IsTestProject>true</IsTestProject>
-  </PropertyGroup>
+    </PropertyGroup>
 
-  <ItemGroup>
+    <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
     <PackageReference Include="coverlet.msbuild" Version="2.6.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
+    </ItemGroup>
 
-  <ItemGroup>
+    <ItemGroup>
     <ProjectReference Include="..\..\src\Cmdty.TimePeriodValueTypes\Cmdty.TimePeriodValueTypes.csproj" />
-  </ItemGroup>
+    </ItemGroup>
 
-  <ItemGroup>
+    <ItemGroup>
     <None Update="TestTextTemplate.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
+        <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-  </ItemGroup>
+    </ItemGroup>
 
-  <ItemGroup>
+    <ItemGroup>
+	    <Using Include="NUnit.Framework" />
+    </ItemGroup>
+
+	<ItemGroup>
     <Compile Update="QuarterHourTest.Generated.cs">
       <DependentUpon>QuarterHourTest.cs</DependentUpon>
     </Compile>
