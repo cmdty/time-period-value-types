@@ -26,37 +26,36 @@
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 
-namespace Cmdty.TimePeriodValueTypes.Test
+namespace Cmdty.TimePeriodValueTypes.Test;
+
+internal static class TestHelper
 {
-    internal static class TestHelper
+
+    internal static void AssertTimePeriodXmlSerializationRoundTripSuccess<T>(T timePeriod)
+        where T : ITimePeriod<T>
     {
+        XmlSerializer xmlSerializer = new XmlSerializer(timePeriod.GetType());
 
-        internal static void AssertTimePeriodXmlSerializationRoundTripSuccess<T>(T timePeriod)
-            where T : ITimePeriod<T>
+        using (Stream memoryStream = new MemoryStream())
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(timePeriod.GetType());
-
-            using (Stream memoryStream = new MemoryStream())
-            {
-                xmlSerializer.Serialize(memoryStream, timePeriod);
-                memoryStream.Position = 0;
-                var timePeriodRecreated = (T)xmlSerializer.Deserialize(memoryStream);
-                Assert.AreEqual(timePeriod, timePeriodRecreated);
-            }
+            xmlSerializer.Serialize(memoryStream, timePeriod);
+            memoryStream.Position = 0;
+            var timePeriodRecreated = (T)xmlSerializer.Deserialize(memoryStream);
+            Assert.AreEqual(timePeriod, timePeriodRecreated);
         }
-
-        internal static void AssertTimePeriodBinarySerializationRoundTripSuccess<T>(T timePeriod)
-            where T : ITimePeriod<T>
-        {
-            var binaryFormatter = new BinaryFormatter();
-            using (Stream memoryStream = new MemoryStream())
-            {
-                binaryFormatter.Serialize(memoryStream, timePeriod);
-                memoryStream.Position = 0;
-                T timePeriodDeserialized = (T) binaryFormatter.Deserialize(memoryStream);
-                Assert.AreEqual(timePeriod, timePeriodDeserialized);
-            }
-        }
-
     }
+
+    internal static void AssertTimePeriodBinarySerializationRoundTripSuccess<T>(T timePeriod)
+        where T : ITimePeriod<T>
+    {
+        var binaryFormatter = new BinaryFormatter();
+        using (Stream memoryStream = new MemoryStream())
+        {
+            binaryFormatter.Serialize(memoryStream, timePeriod);
+            memoryStream.Position = 0;
+            T timePeriodDeserialized = (T) binaryFormatter.Deserialize(memoryStream);
+            Assert.AreEqual(timePeriod, timePeriodDeserialized);
+        }
+    }
+
 }

@@ -42,256 +42,255 @@ var localVariableName = localVariableNames[i];
 
 using System.Xml.Serialization;
 
-namespace Cmdty.TimePeriodValueTypes.Test
+namespace Cmdty.TimePeriodValueTypes.Test;
+
+public partial class <#=typeName#>Test
 {
-    public partial class <#=typeName#>Test
+
+    #region Comparison and Equality
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void Equals_WithTwoIdenticalInstances_ReturnsTrue(ITestItem<<#=typeName#>> testItem)
     {
-
-        #region Comparison and Equality
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void Equals_WithTwoIdenticalInstances_ReturnsTrue(ITestItem<<#=typeName#>> testItem)
-        {
-            var <#=localVariableName#>1 = testItem.Create();
-            var <#=localVariableName#>2 = testItem.Create();
-            var equals = <#=localVariableName#>1.Equals(<#=localVariableName#>2);
-            Assert.IsTrue(equals);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void ObjectEquals_WithTwoIdenticalInstances_ReturnsTrue(ITestItem<<#=typeName#>> testItem)
-        {
-            object <#=localVariableName#>1 = testItem.Create();
-            object <#=localVariableName#>2 = testItem.Create();
-            var equals = <#=localVariableName#>1.Equals(<#=localVariableName#>2);
-            Assert.IsTrue(equals);
-        }
-
-        [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
-        public void Equals_WithTwoDifferentInstances_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            var equals = <#=localVariableName#>1.Equals(<#=localVariableName#>2);
-            Assert.IsFalse(equals);
-        }
-
-        [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
-        public void ObjectEquals_WithTwoDifferentInstances_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            (object <#=localVariableName#>1, object <#=localVariableName#>2) = pairTestItem.CreatePair();
-            var equals = <#=localVariableName#>1.Equals(<#=localVariableName#>2);
-            Assert.IsFalse(equals);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void ObjectEquals_WithParameterNotOfType<#=typeName#>_ReturnsFalse(ITestItem<<#=typeName#>> testItem)
-        {
-            var <#=localVariableName#> = testItem.Create();
-            object obj = new object();
-            var equals = <#=localVariableName#>.Equals(obj);
-            Assert.IsFalse(equals);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void GetHashCode_OnTwoIdenticalInstances_ReturnSameValue(ITestItem<<#=typeName#>> testItem)
-        {
-            var <#=localVariableName#>1 = testItem.Create();
-            var <#=localVariableName#>2 = testItem.Create();
-            Assert.AreEqual(<#=localVariableName#>1.GetHashCode(), <#=localVariableName#>2.GetHashCode());
-        }
-
-        [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
-        public void GetHashCode_OnTwoDifferentInstances_ReturnDifferentValue(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.AreNotEqual(<#=localVariableName#>1.GetHashCode(), <#=localVariableName#>2.GetHashCode());
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void EqualityOperator_WithTwoIdenticalInstances_ReturnsTrue(ITestItem<<#=typeName#>> testItem)
-        {
-            var <#=localVariableName#>1 = testItem.Create();
-            var <#=localVariableName#>2 = testItem.Create();
-            Assert.IsTrue(<#=localVariableName#>1 == <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
-        public void EqualityOperator_WithTwoDifferentInstances_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsFalse(<#=localVariableName#>1 == <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void InequalityOperator_WithTwoIdenticalInstances_ReturnsFalse(ITestItem<<#=typeName#>> testItem)
-        {
-            var <#=localVariableName#>1 = testItem.Create();
-            var <#=localVariableName#>2 = testItem.Create();
-            Assert.IsFalse(<#=localVariableName#>1 != <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
-        public void InequalityOperator_WithTwoDifferentInstances_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsTrue(<#=localVariableName#>1 != <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1LaterThan<#=typeName#>2))]
-        public void GreaterThanOperator_WithLeftLaterThanRight_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsTrue(<#=localVariableName#>1 > <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
-        public void GreaterThanOperator_WithLeftEarlierThanOrEqualToRight_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsFalse(<#=localVariableName#>1 > <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
-        public void LessThanOperator_WithLeftEarlierThanRight_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsTrue(<#=localVariableName#>1 < <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1LaterThanOrEqualTo<#=typeName#>2))]
-        public void LessThanOperator_WithLeftLaterThanOrEqualToRight_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsFalse(<#=localVariableName#>1 < <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1LaterThanOrEqualTo<#=typeName#>2))]
-        public void GreaterThanOrEqualToOperator_WithLeftLaterThanOrEqualToRight_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsTrue(<#=localVariableName#>1 >= <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
-        public void GreaterThanOrEqualToOperator_WithLeftEarlierThanRight_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsFalse(<#=localVariableName#>1 >= <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1EarlierThanOrEqualTo<#=typeName#>2))]
-        public void LessThanOrEqualToOperator_WithLeftEarlierThanOrEqualToRight_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsTrue(<#=localVariableName#>1 <= <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1LaterThan<#=typeName#>2))]
-        public void LessThanOrEqualToOperator_WithLeftLaterThanRight_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            Assert.IsFalse(<#=localVariableName#>1 <= <#=localVariableName#>2);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void CompareTo_WithParameterIdenticalToInstance_ReturnsZero(ITestItem<<#=typeName#>> testItem)
-        {
-            var <#=localVariableName#>1 = testItem.Create();
-            var <#=localVariableName#>2 = testItem.Create();
-            var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
-            Assert.AreEqual(0, comp);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1LaterThan<#=typeName#>2))]
-        public void CompareTo_WithInstanceLaterThanParameter_ReturnsPositiveNumber(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
-            Assert.That(comp, Is.GreaterThan(0));
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
-        public void CompareTo_WithInstanceEarlierThanParameter_ReturnsNegativeNumber(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
-            var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
-            Assert.That(comp, Is.LessThan(0));
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void IComparableCompareTo_WithInstanceIdenticalToParameter_ReturnsZero(ITestItem<<#=typeName#>> testItem)
-        {
-            var <#=localVariableName#>1 = testItem.Create();
-            var <#=localVariableName#>2 = testItem.Create();
-            var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
-            Assert.AreEqual(0, comp);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1LaterThan<#=typeName#>2))]
-        public void IComparableCompareTo_WithInstanceLaterThanParameter_ReturnsPositiveNumber(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            (IComparable <#=localVariableName#>1, object <#=localVariableName#>2) = pairTestItem.CreatePair();
-            var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
-            Assert.That(comp, Is.GreaterThan(0));
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
-        public void IComparableCompareTo_WithInstanceEarlierThanParameter_ReturnsNegativeNumber(ITestItemPair<<#=typeName#>> pairTestItem)
-        {
-            (IComparable <#=localVariableName#>1, object <#=localVariableName#>2) = pairTestItem.CreatePair();
-            var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
-            Assert.That(comp, Is.LessThan(0));
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void IComparableCompareTo_WithParameterNotOf<#=typeName#>Type_ThrowsArgumentException(ITestItem<<#=typeName#>> testItem)
-        {
-            IComparable <#=localVariableName#> = testItem.Create();
-            object obj = new object();
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            Assert.Throws<ArgumentException>(() => <#=localVariableName#>.CompareTo(obj));
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void IComparableCompareTo_WithParameterEqualToNull_Returns1(ITestItem<<#=typeName#>> testItem)
-        {
-            IComparable <#=localVariableName#> = testItem.Create();
-            var comp = <#=localVariableName#>.CompareTo(null);
-            Assert.AreEqual(1, comp);
-        }
-
-        #endregion Comparison and Equality
-
-        #region IXmlSerializable
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void IXmlSerializable_Roundtrip_Completes(ITestItem<<#=typeName#>> testItem)
-        {
-            var <#=localVariableName#> = testItem.Create();
-            TestHelper.AssertTimePeriodXmlSerializationRoundTripSuccess(<#=localVariableName#>);
-        }
-
-        [TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void GetSchema_ReturnsNull(ITestItem<<#=typeName#>> testItem)
-        {
-            IXmlSerializable <#=localVariableName#> = testItem.Create();
-            Assert.IsNull(<#=localVariableName#>.GetSchema());
-        }
-
-        #endregion IXmlSerializable
-
-		#region Binary Serializable
-		
-		[TestCaseSource(nameof(<#=typeName#>TestItems))]
-        public void BinarySerialization_Roundtrip_Completes(ITestItem<<#=typeName#>> testItem)
-        {
-            var <#=localVariableName#> = testItem.Create();
-            TestHelper.AssertTimePeriodBinarySerializationRoundTripSuccess(<#=localVariableName#>);
-        }
-		
-		#endregion Binary Serializable
-
+        var <#=localVariableName#>1 = testItem.Create();
+        var <#=localVariableName#>2 = testItem.Create();
+        var equals = <#=localVariableName#>1.Equals(<#=localVariableName#>2);
+        Assert.IsTrue(equals);
     }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void ObjectEquals_WithTwoIdenticalInstances_ReturnsTrue(ITestItem<<#=typeName#>> testItem)
+    {
+        object <#=localVariableName#>1 = testItem.Create();
+        object <#=localVariableName#>2 = testItem.Create();
+        var equals = <#=localVariableName#>1.Equals(<#=localVariableName#>2);
+        Assert.IsTrue(equals);
+    }
+
+    [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
+    public void Equals_WithTwoDifferentInstances_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        var equals = <#=localVariableName#>1.Equals(<#=localVariableName#>2);
+        Assert.IsFalse(equals);
+    }
+
+    [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
+    public void ObjectEquals_WithTwoDifferentInstances_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        (object <#=localVariableName#>1, object <#=localVariableName#>2) = pairTestItem.CreatePair();
+        var equals = <#=localVariableName#>1.Equals(<#=localVariableName#>2);
+        Assert.IsFalse(equals);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void ObjectEquals_WithParameterNotOfType<#=typeName#>_ReturnsFalse(ITestItem<<#=typeName#>> testItem)
+    {
+        var <#=localVariableName#> = testItem.Create();
+        object obj = new object();
+        var equals = <#=localVariableName#>.Equals(obj);
+        Assert.IsFalse(equals);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void GetHashCode_OnTwoIdenticalInstances_ReturnSameValue(ITestItem<<#=typeName#>> testItem)
+    {
+        var <#=localVariableName#>1 = testItem.Create();
+        var <#=localVariableName#>2 = testItem.Create();
+        Assert.AreEqual(<#=localVariableName#>1.GetHashCode(), <#=localVariableName#>2.GetHashCode());
+    }
+
+    [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
+    public void GetHashCode_OnTwoDifferentInstances_ReturnDifferentValue(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.AreNotEqual(<#=localVariableName#>1.GetHashCode(), <#=localVariableName#>2.GetHashCode());
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void EqualityOperator_WithTwoIdenticalInstances_ReturnsTrue(ITestItem<<#=typeName#>> testItem)
+    {
+        var <#=localVariableName#>1 = testItem.Create();
+        var <#=localVariableName#>2 = testItem.Create();
+        Assert.IsTrue(<#=localVariableName#>1 == <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
+    public void EqualityOperator_WithTwoDifferentInstances_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsFalse(<#=localVariableName#>1 == <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void InequalityOperator_WithTwoIdenticalInstances_ReturnsFalse(ITestItem<<#=typeName#>> testItem)
+    {
+        var <#=localVariableName#>1 = testItem.Create();
+        var <#=localVariableName#>2 = testItem.Create();
+        Assert.IsFalse(<#=localVariableName#>1 != <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(NonEqual<#=typeName#>PairTestItems))]
+    public void InequalityOperator_WithTwoDifferentInstances_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsTrue(<#=localVariableName#>1 != <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1LaterThan<#=typeName#>2))]
+    public void GreaterThanOperator_WithLeftLaterThanRight_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsTrue(<#=localVariableName#>1 > <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
+    public void GreaterThanOperator_WithLeftEarlierThanOrEqualToRight_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsFalse(<#=localVariableName#>1 > <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
+    public void LessThanOperator_WithLeftEarlierThanRight_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsTrue(<#=localVariableName#>1 < <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1LaterThanOrEqualTo<#=typeName#>2))]
+    public void LessThanOperator_WithLeftLaterThanOrEqualToRight_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsFalse(<#=localVariableName#>1 < <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1LaterThanOrEqualTo<#=typeName#>2))]
+    public void GreaterThanOrEqualToOperator_WithLeftLaterThanOrEqualToRight_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsTrue(<#=localVariableName#>1 >= <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
+    public void GreaterThanOrEqualToOperator_WithLeftEarlierThanRight_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsFalse(<#=localVariableName#>1 >= <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1EarlierThanOrEqualTo<#=typeName#>2))]
+    public void LessThanOrEqualToOperator_WithLeftEarlierThanOrEqualToRight_ReturnsTrue(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsTrue(<#=localVariableName#>1 <= <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1LaterThan<#=typeName#>2))]
+    public void LessThanOrEqualToOperator_WithLeftLaterThanRight_ReturnsFalse(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        Assert.IsFalse(<#=localVariableName#>1 <= <#=localVariableName#>2);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void CompareTo_WithParameterIdenticalToInstance_ReturnsZero(ITestItem<<#=typeName#>> testItem)
+    {
+        var <#=localVariableName#>1 = testItem.Create();
+        var <#=localVariableName#>2 = testItem.Create();
+        var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
+        Assert.AreEqual(0, comp);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1LaterThan<#=typeName#>2))]
+    public void CompareTo_WithInstanceLaterThanParameter_ReturnsPositiveNumber(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
+        Assert.That(comp, Is.GreaterThan(0));
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
+    public void CompareTo_WithInstanceEarlierThanParameter_ReturnsNegativeNumber(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        var (<#=localVariableName#>1, <#=localVariableName#>2) = pairTestItem.CreatePair();
+        var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
+        Assert.That(comp, Is.LessThan(0));
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void IComparableCompareTo_WithInstanceIdenticalToParameter_ReturnsZero(ITestItem<<#=typeName#>> testItem)
+    {
+        var <#=localVariableName#>1 = testItem.Create();
+        var <#=localVariableName#>2 = testItem.Create();
+        var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
+        Assert.AreEqual(0, comp);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1LaterThan<#=typeName#>2))]
+    public void IComparableCompareTo_WithInstanceLaterThanParameter_ReturnsPositiveNumber(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        (IComparable <#=localVariableName#>1, object <#=localVariableName#>2) = pairTestItem.CreatePair();
+        var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
+        Assert.That(comp, Is.GreaterThan(0));
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>1EarlierThan<#=typeName#>2))]
+    public void IComparableCompareTo_WithInstanceEarlierThanParameter_ReturnsNegativeNumber(ITestItemPair<<#=typeName#>> pairTestItem)
+    {
+        (IComparable <#=localVariableName#>1, object <#=localVariableName#>2) = pairTestItem.CreatePair();
+        var comp = <#=localVariableName#>1.CompareTo(<#=localVariableName#>2);
+        Assert.That(comp, Is.LessThan(0));
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void IComparableCompareTo_WithParameterNotOf<#=typeName#>Type_ThrowsArgumentException(ITestItem<<#=typeName#>> testItem)
+    {
+        IComparable <#=localVariableName#> = testItem.Create();
+        object obj = new object();
+        // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+        Assert.Throws<ArgumentException>(() => <#=localVariableName#>.CompareTo(obj));
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void IComparableCompareTo_WithParameterEqualToNull_Returns1(ITestItem<<#=typeName#>> testItem)
+    {
+        IComparable <#=localVariableName#> = testItem.Create();
+        var comp = <#=localVariableName#>.CompareTo(null);
+        Assert.AreEqual(1, comp);
+    }
+
+    #endregion Comparison and Equality
+
+    #region IXmlSerializable
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void IXmlSerializable_Roundtrip_Completes(ITestItem<<#=typeName#>> testItem)
+    {
+        var <#=localVariableName#> = testItem.Create();
+        TestHelper.AssertTimePeriodXmlSerializationRoundTripSuccess(<#=localVariableName#>);
+    }
+
+    [TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void GetSchema_ReturnsNull(ITestItem<<#=typeName#>> testItem)
+    {
+        IXmlSerializable <#=localVariableName#> = testItem.Create();
+        Assert.IsNull(<#=localVariableName#>.GetSchema());
+    }
+
+    #endregion IXmlSerializable
+
+	#region Binary Serializable
+		
+	[TestCaseSource(nameof(<#=typeName#>TestItems))]
+    public void BinarySerialization_Roundtrip_Completes(ITestItem<<#=typeName#>> testItem)
+    {
+        var <#=localVariableName#> = testItem.Create();
+        TestHelper.AssertTimePeriodBinarySerializationRoundTripSuccess(<#=localVariableName#>);
+    }
+		
+	#endregion Binary Serializable
+
 }
 
 <#

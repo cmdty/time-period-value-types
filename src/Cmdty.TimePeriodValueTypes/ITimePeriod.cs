@@ -25,17 +25,16 @@
 
 using System.Xml.Serialization;
 
-namespace Cmdty.TimePeriodValueTypes
+namespace Cmdty.TimePeriodValueTypes;
+
+public interface ITimePeriod<T> : IComparable<T>, IComparable, IEquatable<T>, IXmlSerializable
+                where T : ITimePeriod<T>
 {
-    public interface ITimePeriod<T> : IComparable<T>, IComparable, IEquatable<T>, IXmlSerializable
-                    where T : ITimePeriod<T>
-    {
-        T Offset(int numPeriods);
-        int OffsetFrom(T timePeriod);
-        DateTime Start { get; }
-        DateTime End { get; }
-        T2 First<T2>() where T2 : ITimePeriod<T2>; 
-        T2 Last<T2>() where T2: ITimePeriod<T2>;
-        IEnumerable<T2> Expand<T2>() where T2 : ITimePeriod<T2>;
-    }
+    T Offset(int numPeriods);
+    int OffsetFrom(T timePeriod);
+    DateTime Start { get; }
+    DateTime End { get; }
+    T2 First<T2>() where T2 : ITimePeriod<T2>; 
+    T2 Last<T2>() where T2: ITimePeriod<T2>;
+    IEnumerable<T2> Expand<T2>() where T2 : ITimePeriod<T2>;
 }

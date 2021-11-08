@@ -23,26 +23,25 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-namespace Cmdty.TimePeriodValueTypes
+namespace Cmdty.TimePeriodValueTypes;
+
+internal static class Preconditions
 {
-    internal static class Preconditions
+    internal static void CheckParameterNotNull<T>(T paramValue, string paramName)
+        where T : class
     {
-        internal static void CheckParameterNotNull<T>(T paramValue, string paramName)
-            where T : class
+        if (paramValue is null)
         {
-            if (paramValue is null)
-            {
-                throw new ArgumentNullException(paramName);
-            }
+            throw new ArgumentNullException(paramName);
         }
-
-        internal static void CheckArgumentOutOfRange(string paramName, int paraValue, int minInclusive, int maxInclusive)
-        {
-            if (paraValue < minInclusive || paraValue > maxInclusive)
-            {
-                throw new ArgumentOutOfRangeException(paramName, paraValue, $"The value of parameter {paramName} should be in the closed interval [{minInclusive}-{maxInclusive}]");
-            }
-        }
-
     }
+
+    internal static void CheckArgumentOutOfRange(string paramName, int paraValue, int minInclusive, int maxInclusive)
+    {
+        if (paraValue < minInclusive || paraValue > maxInclusive)
+        {
+            throw new ArgumentOutOfRangeException(paramName, paraValue, $"The value of parameter {paramName} should be in the closed interval [{minInclusive}-{maxInclusive}]");
+        }
+    }
+
 }

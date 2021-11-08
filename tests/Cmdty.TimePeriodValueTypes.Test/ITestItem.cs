@@ -23,15 +23,14 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-namespace Cmdty.TimePeriodValueTypes.Test
-{
-    public interface ITestItem<out TTimePeriod> where TTimePeriod : struct, ITimePeriod<TTimePeriod>
-    {
-        TTimePeriod Create();
-    }
+namespace Cmdty.TimePeriodValueTypes.Test;
 
-    public interface ITestItemPair<TTimePeriod> where TTimePeriod : struct, ITimePeriod<TTimePeriod>
-    {
-        (TTimePeriod timePeriod1, TTimePeriod timePeriod2) CreatePair();
-    }
+public interface ITestItem<out TTimePeriod> where TTimePeriod : struct, ITimePeriod<TTimePeriod>
+{
+    TTimePeriod Create();
+}
+
+public interface ITestItemPair<TTimePeriod> where TTimePeriod : struct, ITimePeriod<TTimePeriod>
+{
+    (TTimePeriod timePeriod1, TTimePeriod timePeriod2) CreatePair();
 }

@@ -23,11 +23,10 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-namespace Cmdty.TimePeriodValueTypes
+namespace Cmdty.TimePeriodValueTypes;
+
+internal static class Constants
 {
-    internal static class Constants
-    {
-        public const int MinCalendarYearNum = 1;
-        public const int MaxCalendarYearNum = 9998;
-    }
+    public const int MinCalendarYearNum = 1;
+    public const int MaxCalendarYearNum = 9998;
 }

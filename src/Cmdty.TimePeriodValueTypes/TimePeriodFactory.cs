@@ -27,49 +27,48 @@ using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Cmdty.TimePeriodValueTypes
+namespace Cmdty.TimePeriodValueTypes;
+
+public static class TimePeriodFactory<T>
+                where T : ITimePeriod<T>
 {
-    public static class TimePeriodFactory<T>
-                    where T : ITimePeriod<T>
+    // TODO look at whether dictionary is necessary as key type information is already held in the generic type T of TimePeriodFactory
+    private static readonly ConcurrentDictionary<Type, Func<DateTime, T>> Creators = 
+        new ConcurrentDictionary<Type, Func<DateTime, T>>();
+    // TODO after benchmarking, potentially populate this dictionary with factory methods of known TimePeriod types
+
+    public static T FromDateTime(DateTime dateTime)
     {
-        // TODO look at whether dictionary is necessary as key type information is already held in the generic type T of TimePeriodFactory
-        private static readonly ConcurrentDictionary<Type, Func<DateTime, T>> Creators = 
-            new ConcurrentDictionary<Type, Func<DateTime, T>>();
-        // TODO after benchmarking, potentially populate this dictionary with factory methods of known TimePeriod types
-
-        public static T FromDateTime(DateTime dateTime)
-        {
-            var timePeriodType = typeof(T);
-            var creator = Creators.GetOrAdd(timePeriodType, ConstructCreator);
-            return creator(dateTime);
-        }
-
-        // TODO benchmark performance
-        private static Func<DateTime, T> ConstructCreator(Type type)
-        {
-            var dateTimeParameter = Expression.Parameter(typeof(DateTime));
-            // TODO look at other overloads of Type.GetMethod which specify argument types
-            MethodInfo staticFactoryMethod = type.GetMethod("FromDateTime", BindingFlags.Public | BindingFlags.Static);
-
-            // TODO look for constructors which accept single DateTime parameters
-
-            if (staticFactoryMethod == null)
-                throw new ArgumentException($"Type {type.Name} does not contain public static method FromDateTime");
-
-            var expression = Expression.Call(staticFactoryMethod, dateTimeParameter);
-            var lambda2 = Expression.Lambda<Func<DateTime, T>>(expression, dateTimeParameter);
-            return lambda2.Compile();
-        }
-
+        var timePeriodType = typeof(T);
+        var creator = Creators.GetOrAdd(timePeriodType, ConstructCreator);
+        return creator(dateTime);
     }
-    public static class TimePeriodFactory
+
+    // TODO benchmark performance
+    private static Func<DateTime, T> ConstructCreator(Type type)
     {
+        var dateTimeParameter = Expression.Parameter(typeof(DateTime));
+        // TODO look at other overloads of Type.GetMethod which specify argument types
+        MethodInfo staticFactoryMethod = type.GetMethod("FromDateTime", BindingFlags.Public | BindingFlags.Static);
 
-        public static T FromDateTime<T>(DateTime dateTime)
-            where T : ITimePeriod<T>
-        {
-            return TimePeriodFactory<T>.FromDateTime(dateTime);
-        }
+        // TODO look for constructors which accept single DateTime parameters
 
+        if (staticFactoryMethod == null)
+            throw new ArgumentException($"Type {type.Name} does not contain public static method FromDateTime");
+
+        var expression = Expression.Call(staticFactoryMethod, dateTimeParameter);
+        var lambda2 = Expression.Lambda<Func<DateTime, T>>(expression, dateTimeParameter);
+        return lambda2.Compile();
     }
+
+}
+public static class TimePeriodFactory
+{
+
+    public static T FromDateTime<T>(DateTime dateTime)
+        where T : ITimePeriod<T>
+    {
+        return TimePeriodFactory<T>.FromDateTime(dateTime);
+    }
+
 }

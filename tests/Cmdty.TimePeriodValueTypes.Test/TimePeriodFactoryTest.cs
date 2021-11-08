@@ -23,51 +23,50 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-namespace Cmdty.TimePeriodValueTypes.Test
+namespace Cmdty.TimePeriodValueTypes.Test;
+
+public sealed class TimePeriodFactoryTest
 {
-    public sealed class TimePeriodFactoryTest
+    // TODO tests for other TimePeriod types
+
+    [TestCaseSource(nameof(ToStringTestItems))]
+    public void FromDateTime_MonthTypeParameter_EqualsExpected(DateTime dateTime, Month expectedMonth)
     {
-        // TODO tests for other TimePeriod types
-
-        [TestCaseSource(nameof(ToStringTestItems))]
-        public void FromDateTime_MonthTypeParameter_EqualsExpected(DateTime dateTime, Month expectedMonth)
-        {
-            var month = TimePeriodFactory.FromDateTime<Month>(dateTime);
-            Assert.AreEqual(expectedMonth, month);
-        }
-
-        private static readonly IEnumerable<object[]> ToStringTestItems = new[]
-        {
-            new object[]
-            {
-                new DateTime(2019, 1, 1),
-                Month.CreateJanuary(2019)
-            },
-            new object[]
-            {
-                new DateTime(2019, 1, 15),
-                Month.CreateJanuary(2019)
-            },
-            new object[]
-            {
-                new DateTime(2019, 1, 31),
-                Month.CreateJanuary(2019)
-            },
-            new object[]
-            {
-                new DateTime(2019, 12, 1),
-                Month.CreateDecember(2019)
-            },
-            new object[]
-            {
-                new DateTime(2019, 12, 15),
-                Month.CreateDecember(2019)
-            },
-            new object[]
-            {
-                new DateTime(2019, 12, 31),
-                Month.CreateDecember(2019)
-            }
-        };
+        var month = TimePeriodFactory.FromDateTime<Month>(dateTime);
+        Assert.AreEqual(expectedMonth, month);
     }
+
+    private static readonly IEnumerable<object[]> ToStringTestItems = new[]
+    {
+        new object[]
+        {
+            new DateTime(2019, 1, 1),
+            Month.CreateJanuary(2019)
+        },
+        new object[]
+        {
+            new DateTime(2019, 1, 15),
+            Month.CreateJanuary(2019)
+        },
+        new object[]
+        {
+            new DateTime(2019, 1, 31),
+            Month.CreateJanuary(2019)
+        },
+        new object[]
+        {
+            new DateTime(2019, 12, 1),
+            Month.CreateDecember(2019)
+        },
+        new object[]
+        {
+            new DateTime(2019, 12, 15),
+            Month.CreateDecember(2019)
+        },
+        new object[]
+        {
+            new DateTime(2019, 12, 31),
+            Month.CreateDecember(2019)
+        }
+    };
 }
